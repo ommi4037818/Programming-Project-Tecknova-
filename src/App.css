@@ -1,38 +1,113 @@
-.App {
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: turquoise;
+  margin: 0;
+  padding: 0;
+}
+
+.app {
+  max-width: 900px;
+  margin: auto ;
+  padding: 50px;
+}
+
+h1 {
   text-align: center;
+  color: black;
+  font-size: 40px;
+  font-style: italic;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.input {
   display: flex;
-  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+button {
+  padding: 5px 15px;
+  font-size: 15px;
+  cursor:crosshair;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.feedback {
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.taskList {
+  padding: 0;
+}
+
+.taskItem {
+  display: flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+  gap: 20px;
+  background: whitesmoke;
+  padding: 5px;
+  margin-bottom: 10px;
+  border: 2px solid black;
+  border-radius: 10px;
+  flex-wrap: wrap;
+}
+
+.taskItem div {
+  flex: 1;
+  overflow-wrap: anywhere;
+  min-width: 200px;
+}
+
+.taskItem.completed strong,
+.taskItem.completed p {
+  text-decoration: line-through;
+  color: black;
+}
+
+.delete {
+  background: rgb(237, 56, 56);
   color: white;
+  border: 2px solid black;
+  border-radius: 10px;
+  padding: 10px 15px;
 }
 
-.App-link {
-  color: #61dafb;
+.delete:hover {
+  background: darkred;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+@media (max-width: 768px) {
+  .app {
+    padding: 20px;
+    max-width: 100%;
   }
-  to {
-    transform: rotate(360deg);
+  .input {
+    flex-direction: column;
+  }
+  button {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: 20px;
+  }
+  input[type="text"] {
+    font-size: 15px;
+  }
+  button {
+    font-size: 15px;
   }
 }
