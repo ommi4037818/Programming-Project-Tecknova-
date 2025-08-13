@@ -87,6 +87,16 @@ button {
   background: darkred;
 }
 
+.order {
+  display: flex;
+  gap: 5px;
+}
+
+.order button {
+  padding: 5px 10px;
+  font-size: 14px;
+}
+
 @media (max-width: 768px) {
   .app {
     padding: 20px;

@@ -35,6 +35,20 @@ function App() {
     );
   };
 
+    const up = (index) => {
+    if (index === 0) return;
+    const newList = [...todolist];
+    [newList[index - 1], newList[index]] = [newList[index], newList[index - 1]];
+    setList(newList);
+  };
+
+  const down = (index) => {
+    if (index === todolist.length - 1) return;
+    const newList = [...todolist];
+    [newList[index], newList[index + 1]] = [newList[index + 1], newList[index]];
+    setList(newList);
+  };
+
   return (
     <div className="app">
       <h1>ToDo App</h1>
@@ -61,31 +75,96 @@ function App() {
 
       {error && <p className="feedback">{error}</p>}
 
+      <h2>Pending</h2>
       <ul className="taskList">
-        {todolist.map((taskItem, index) => (
-          <li
-            key={index}
-            className={`taskItem ${taskItem.completed ? "completed" : ""}`}
-          >
-            <input
-              type="checkbox"
-              checked={taskItem.completed}
-              onChange={() => complete(index)}
-              aria-label={`Mark task "${taskItem.name}" as complete`}
-            />
-            <div>
-              <strong>{taskItem.name}</strong>
-              <p>{taskItem.description}</p>
-            </div>
-            <button
-              onClick={() => deleteItem(index)}
-              className="delete"
-              aria-label={`Delete task "${taskItem.name}"`}
-            >
-              Delete
-            </button>
-          </li>
-        ))}
+        {todolist
+          .filter((taskItem) => !taskItem.completed)
+          .map((taskItem, containerIndex, containerArray) => {
+            const index = todolist.indexOf(taskItem);
+            return (
+              <li
+                key={index}
+                className={`taskItem ${taskItem.completed ? "completed" : ""}`}
+              >
+                <input
+                  type="checkbox"
+                  checked={taskItem.completed}
+                  onChange={() => complete(index)}
+                />
+                <div>
+                  <strong>{taskItem.name}</strong>
+                  <p>{taskItem.description}</p>
+                </div>
+                <div className="order">
+                 <button
+                    onClick={() => up(index)}
+                    disabled={containerIndex === 0} 
+                  >
+                    Move Up
+                  </button>
+                  <button
+                    onClick={() => down(index)}
+                    disabled={containerIndex === containerArray.length - 1}
+                  >
+                    Move Down
+                  </button>
+                  <button
+                    onClick={() => deleteItem(index)}
+                    className="delete"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            );
+          })}
+      </ul>
+
+      <h2>Completed</h2>
+      <ul className="taskList">
+        {todolist
+          .filter((taskItem) => taskItem.completed)
+          .map((taskItem, containerIndex, containerArray) => {
+            const index = todolist.indexOf(taskItem);
+            return (
+              <li
+                key={index}
+                className={`taskItem ${taskItem.completed ? "completed" : ""}`}
+              >
+                <input
+                  type="checkbox"
+                  checked={taskItem.completed}
+                  onChange={() => complete(index)}
+                  aria-label={`Mark task "${taskItem.name}" as complete`}
+                />
+                <div>
+                  <strong>{taskItem.name}</strong>
+                  <p>{taskItem.description}</p>
+                </div>
+                <div className="order">
+                  <button
+                    onClick={() => up(index)}
+                    disabled={containerIndex === 0} 
+                  >
+                    Move Up
+                  </button>
+                  <button
+                    onClick={() => down(index)}
+                    disabled={containerIndex === containerArray.length - 1} 
+                  >
+                    Move Down
+                  </button>
+                  <button
+                    onClick={() => deleteItem(index)}
+                    className="delete"
+                    aria-label={`Delete task "${taskItem.name}"`}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </li>
+            );
+          })}
       </ul>
     </div>
   );
